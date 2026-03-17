@@ -358,8 +358,7 @@
                     </p>
                 </div>
 
-                <form id="waitlistForm" name="waitlist" method="POST" data-netlify="true">
-    <input type="hidden" name="form-name" value="waitlist">
+                <form id="waitlistForm">
                     <div class="input-group">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -699,15 +698,21 @@
     <script>
         document.getElementById('waitlistForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                organization: formData.get('organization')
-            };
-            console.log('Waitlist signup:', data);
-            document.getElementById('waitlistForm').classList.add('hidden');
-            document.getElementById('successMessage').classList.remove('hidden');
+            const form = e.target;
+            const formData = new FormData(form);
+            fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                document.getElementById('waitlistForm').classList.add('hidden');
+                document.getElementById('successMessage').classList.remove('hidden');
+            })
+            .catch((error) => {
+                console.error('Form error:', error);
+                alert('Something went wrong. Please try again.');
+            });
         });
 
         document.querySelectorAll('a[href="#details-form"]').forEach(link => {
