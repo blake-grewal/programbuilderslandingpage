@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Builders — Bootcamp for Startup Program Managers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #edeadf;
+            color: #1a1a2e;
+            line-height: 1.6;
+        }
+
+        /* TOP BAR */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 2rem;
+            background: #edeadf;
+            border-bottom: 1px solid rgba(26,26,46,0.1);
+            font-size: 0.875rem;
+            color: #6b6b80;
+        }
+        .topbar-left { display: flex; align-items: center; gap: 0.4rem; }
+        .topbar-heart { color: #e74c3c; }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 3rem 1.5rem; }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.7);
+            color: #2563eb;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(37,99,235,0.2);
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #3b82f6, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* HERO */
+        .hero { text-align: center; margin-bottom: 5rem; }
+
+        h1 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #6b6b80;
+            margin-bottom: 2.5rem;
+            max-width: 42rem;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+
+        .meta-info {
+            display: flex; flex-wrap: wrap; gap: 1.5rem;
+            justify-content: center; align-items: center;
+            margin-bottom: 3rem; color: #6b6b80;
+            font-size: 0.875rem;
+        }
+        .meta-item { display: flex; align-items: center; gap: 0.5rem; font-weight: 500; }
+
+        /* VIDEO */
+        .video-placeholder {
+            max-width: 52rem; margin: 0 auto 3rem;
+            background: #1a1a2e; border-radius: 0.75rem;
+            overflow: hidden; aspect-ratio: 16/9;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .play-button {
+            width: 4.5rem; height: 4.5rem;
+            background: #2563eb; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        /* FORM CARD */
+        .form-section {
+            background: #f7f5f0;
+            border-radius: 0.75rem;
+            padding: 2.5rem;
+            max-width: 40rem;
+            margin: 0 auto 5rem;
+            border: 1px solid rgba(26,26,46,0.1);
+        }
+        .form-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.75rem; font-weight: 700;
+            margin-bottom: 0.5rem; text-align: center; color: #1a1a2e;
+        }
+        .form-subtitle { font-size: 0.95rem; color: #6b6b80; margin-bottom: 1.5rem; text-align: center; }
+
+        .progress-box {
+            background: white; border: 1px solid rgba(26,26,46,0.1);
+            border-radius: 0.5rem; padding: 1rem; margin-bottom: 1.5rem;
+        }
+        .progress-header {
+            display: flex; justify-content: space-between;
+            margin-bottom: 0.5rem; font-size: 0.8rem;
+            font-weight: 600; color: #1a1a2e;
+        }
+        .progress-bar {
+            width: 100%; height: 0.5rem; background: #e5e2d9;
+            border-radius: 9999px; margin-bottom: 0.5rem; overflow: hidden;
+        }
+        .progress-fill { height: 100%; background: #2563eb; width: 60%; }
+        .progress-text { font-size: 0.75rem; color: #6b6b80; }
+
+        .input-group { position: relative; margin-bottom: 0.875rem; }
+        .input-icon {
+            position: absolute; left: 1rem; top: 50%;
+            transform: translateY(-50%); color: #9ca3af;
+            width: 1.1rem; height: 1.1rem; pointer-events: none;
+        }
+        input {
+            width: 100%; padding: 0.875rem 1rem 0.875rem 2.75rem;
+            border: 1px solid rgba(26,26,46,0.15); border-radius: 0.5rem;
+            font-size: 0.95rem; background: white; color: #1a1a2e;
+            font-family: 'Inter', sans-serif; transition: border-color 0.2s;
+        }
+        input::placeholder { color: #9ca3af; }
+        input:focus { outline: none; border-color: #2563eb; }
+
+        button[type="submit"] {
+            width: 100%; background: #2563eb; color: white;
+            padding: 0.9rem 1.5rem; border: none; border-radius: 0.5rem;
+            font-size: 1rem; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+            font-family: 'Inter', sans-serif; transition: background 0.2s; margin-top: 0.25rem;
+        }
+        button[type="submit"]:hover { background: #1d4ed8; }
+        .form-footer { text-align: center; font-size: 0.8rem; color: #9ca3af; margin-top: 1rem; }
+
+        /* BENEFITS */
+        .benefits-section { margin-bottom: 5rem; }
+        .section-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.75rem; font-weight: 700; text-align: center;
+            margin-bottom: 3rem; color: #1a1a2e; line-height: 1.2;
+        }
+        .benefits-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem; max-width: 54rem; margin: 0 auto;
+        }
+        .benefit-card {
+            display: flex; align-items: flex-start; gap: 0.75rem;
+            background: white; padding: 1.25rem; border-radius: 0.5rem;
+            border: 1px solid rgba(26,26,46,0.08); color: #1a1a2e;
+            font-size: 0.9rem; line-height: 1.5;
+        }
+
+        /* CURRICULUM */
+        .curriculum-section { margin-bottom: 5rem; }
+        .phase-block {
+            background: white; border-radius: 0.75rem;
+            border: 1px solid rgba(26,26,46,0.1); margin-bottom: 1.5rem; overflow: hidden;
+        }
+        .phase-header {
+            background: #1a1a2e; color: #edeadf;
+            padding: 0.875rem 1.5rem; font-size: 0.8rem;
+            font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+        }
+        .session-item { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(26,26,46,0.07); }
+        .session-item:last-child { border-bottom: none; }
+        .session-item:hover { background: #faf9f6; }
+        .session-content { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: flex-start; }
+        .session-main { flex: 1; min-width: 250px; display: flex; gap: 1rem; align-items: flex-start; }
+        .session-number { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: #2563eb; flex-shrink: 0; line-height: 1; }
+        .session-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; color: #1a1a2e; }
+        .session-description { color: #6b6b80; font-size: 0.85rem; }
+        .session-time { color: #9ca3af; font-size: 0.8rem; font-weight: 500; align-self: center; flex-shrink: 0; }
+        .break-notice {
+            background: #f7f5f0; padding: 0.875rem 1.5rem;
+            text-align: center; color: #9ca3af; font-size: 0.8rem;
+            font-weight: 500; border-top: 1px solid rgba(26,26,46,0.07);
+            letter-spacing: 0.05em;
+        }
+
+        /* STATS */
+        .stats-section { margin-bottom: 5rem; }
+        .stats-box { background: #1a1a2e; border-radius: 0.75rem; padding: 3rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .stat-item { text-align: center; }
+        .stat-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3.5rem; font-weight: 800; color: #2563eb; margin-bottom: 0.5rem; line-height: 1;
+        }
+        .stat-label { color: #9ca3af; font-size: 0.8rem; line-height: 1.4; }
+
+        /* CERTIFICATE */
+        .certificate-section { margin-bottom: 5rem; }
+        .certificate-box {
+            background: #f7f5f0; border-radius: 0.75rem;
+            padding: 3rem; border: 1px solid rgba(26,26,46,0.1);
+        }
+        .certificate-header { text-align: center; margin-bottom: 2rem; }
+        .certificate-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.5rem; font-weight: 700; margin-bottom: 0.75rem; color: #1a1a2e;
+        }
+        .certificate-subtitle { font-size: 1.1rem; color: #6b6b80; }
+        .certificate-card {
+            background: white; border-radius: 0.5rem; padding: 2.5rem;
+            max-width: 54rem; margin: 0 auto; border: 3px solid #f0ece0;
+        }
+        .certificate-content { text-align: center; margin-bottom: 1.5rem; }
+        .certificate-label { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6b80; margin-bottom: 1rem; }
+        .certificate-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 3rem; font-weight: 700; margin-bottom: 1rem; color: #1a1a2e;
+        }
+        .certificate-text { font-size: 1rem; color: #6b6b80; margin-bottom: 0.5rem; }
+        .certificate-footer {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem; align-items: center; margin-top: 2.5rem;
+            padding-top: 2rem; border-top: 1px solid rgba(26,26,46,0.1);
+        }
+        .skills-list { font-size: 0.875rem; }
+        .skills-title { font-weight: 600; margin-bottom: 0.75rem; font-size: 0.85rem; color: #1a1a2e; }
+        .skill-item { color: #6b6b80; margin-bottom: 0.35rem; font-size: 0.85rem; }
+        .certificate-badge { display: flex; justify-content: center; }
+        .badge-circle {
+            width: 5.5rem; height: 5.5rem; background: #2563eb;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .signature-section { text-align: center; }
+        .signature-text { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 2rem; margin-bottom: 0.5rem; color: #1a1a2e; }
+        .signature-info { font-size: 0.8rem; color: #6b6b80; }
+
+        /* CTA */
+        .cta-section {
+            background: #1a1a2e; border-radius: 0.75rem;
+            padding: 4rem 3rem; text-align: center; color: white;
+        }
+        .cta-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.2;
+        }
+        .cta-text { font-size: 1.05rem; margin-bottom: 2.5rem; color: #9ca3af; max-width: 36rem; margin-left: auto; margin-right: auto; line-height: 1.7; }
+        .cta-button {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #2563eb; color: white; padding: 0.9rem 2rem;
+            border-radius: 0.5rem; font-weight: 600; font-size: 1rem;
+            text-decoration: none; cursor: pointer;
+            font-family: 'Inter', sans-serif; transition: background 0.2s;
+            border: none;
+        }
+        .cta-button:hover { background: #1d4ed8; }
+
+        .hidden { display: none; }
+        .success-message { text-align: center; padding: 2rem; }
+        .success-icon {
+            width: 3.5rem; height: 3.5rem; background: #eff6ff;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; margin: 0 auto 1rem;
+        }
+        .success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a2e; }
+        .success-text { color: #6b6b80; margin-bottom: 1rem; font-size: 0.95rem; }
+        .success-note { font-size: 0.8rem; color: #9ca3af; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.75rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .certificate-footer { grid-template-columns: 1fr; text-align: center; }
+            .session-content { flex-direction: column; }
+            .session-time { align-self: flex-start; }
+            .topbar { padding: 0.75rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <div class="topbar-left">
+            Built with <span class="topbar-heart">♥</span> by the small team at Boost
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <div class="badge">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <span>June's Bootcamp is Live — Only 10 spots available</span>
+            </div>
+
+            <h1>
+                For program managers<br>
+                <span class="gradient-text">building what's next</span>
+            </h1>
+
+            <p class="subtitle">
+                Learn how to design engaging, high-performing programs — and use AI to run them smarter. Built for the program managers shaping the next generation of startups.
+            </p>
+
+            <div class="meta-info">
+                <div class="meta-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span>Full-day intensive bootcamp</span>
+                </div>
+                <div style="width: 4px; height: 4px; background: #9ca3af; border-radius: 50%;"></div>
+                <div class="meta-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                    <span>For startup program managers</span>
+                </div>
+            </div>
+
+            <div class="video-placeholder" style="padding:0;background:transparent;overflow:hidden;border-radius:0.75rem">
+                <iframe
+                    src="https://www.loom.com/embed/YOUR_LOOM_VIDEO_ID_HERE"
+                    frameborder="0"
+                    allowfullscreen
+                    style="width:100%;height:100%;display:block;border-radius:0.75rem">
+                </iframe>
+            </div>
+
+            <div class="form-section" id="details-form">
+                <h3 class="form-title">Get Full Bootcamp Details</h3>
+                <p class="form-subtitle">Share pricing, schedule, and curriculum with your team</p>
+
+                <div class="progress-box">
+                    <div class="progress-header">
+                        <span>Limited Availability</span>
+                        <span>4 spots left</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="progress-text">
+                        <strong>6 program managers</strong> have already requested info
+                    </p>
+                </div>
+
+                <form id="waitlistForm">
+                    <div class="input-group">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <input type="text" name="name" placeholder="Full Name" required>
+                    </div>
+
+                    <div class="input-group">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <input type="email" name="email" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="input-group">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                        <input type="text" name="organization" placeholder="Organization" required>
+                    </div>
+
+                    <button type="submit">
+                        Get Full Details
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+
+                <div id="successMessage" class="success-message hidden">
+                    <div class="success-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <h3 class="success-title">Check your inbox!</h3>
+                    <p class="success-text">
+                        We've sent you the complete bootcamp details including pricing, schedule, and team discount options.
+                    </p>
+                    <p class="success-note">
+                        Perfect to share with your team and decision-makers.
+                    </p>
+                </div>
+
+                <p class="form-footer">
+                    You'll receive detailed information including pricing, full schedule, and team discount options
+                </p>
+            </div>
+        </div>
+
+        <div class="benefits-section">
+            <h2 class="section-title">What You'll Master</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <span style="font-size:16px;flex-shrink:0;margin-top:2px">✅</span>
+                    <span>Build dynamic, personalized programs without adding headcount</span>
+                </div>
+                <div class="benefit-card">
+                    <span style="font-size:16px;flex-shrink:0;margin-top:2px">✅</span>
+                    <span>Learn AI-powered strategies to scale founder engagement</span>
+                </div>
+                <div class="benefit-card">
+                    <span style="font-size:16px;flex-shrink:0;margin-top:2px">✅</span>
+                    <span>Get proven frameworks for every program phase</span>
+                </div>
+                <div class="benefit-card">
+                    <span style="font-size:16px;flex-shrink:0;margin-top:2px">✅</span>
+                    <span>Walk away with 30+ ready-to-use tools and templates</span>
+                </div>
+                <div class="benefit-card">
+                    <span style="font-size:16px;flex-shrink:0;margin-top:2px">✅</span>
+                    <span>Join a community of elite program builders</span>
+                </div>
+                <div class="benefit-card">
+                    <span style="font-size:16px;flex-shrink:0;margin-top:2px">✅</span>
+                    <span>Lifetime access to all materials and updates</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="curriculum-section">
+            <h2 class="section-title">Full-Day Curriculum</h2>
+            <p class="subtitle" style="margin-bottom: 3rem;">11 sessions covering the complete program lifecycle</p>
+
+            <div class="phase-block">
+                <div class="phase-header">Before the program</div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">01</span>
+                            <div>
+                                <div class="session-title">Know your founder — defining your ICP</div>
+                                <div class="session-description">Who you're building for shapes everything else</div>
+                            </div>
+                        </div>
+                        <div class="session-time">9:00 - 9:45</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">02</span>
+                            <div>
+                                <div class="session-title">Tell your story — program positioning and narrative</div>
+                                <div class="session-description">What does your program do, how does it do it, what do founders get</div>
+                            </div>
+                        </div>
+                        <div class="session-time">9:45 - 10:30</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">03</span>
+                            <div>
+                                <div class="session-title">Attract the best founders — marketing and partnerships</div>
+                                <div class="session-description">Channels, partners, and getting quality applications at volume</div>
+                            </div>
+                        </div>
+                        <div class="session-time">10:45 - 11:30</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">04</span>
+                            <div>
+                                <div class="session-title">Think backwards — design from outcomes, not activities</div>
+                                <div class="session-description">What do you want founders to have achieved by the last day?</div>
+                            </div>
+                        </div>
+                        <div class="session-time">11:30 - 12:00</div>
+                    </div>
+                </div>
+                <div class="break-notice">Lunch — 12:00 - 1:00 PM</div>
+            </div>
+
+            <div class="phase-block">
+                <div class="phase-header">During the program</div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">05</span>
+                            <div>
+                                <div class="session-title">Engagement is everything — from first contact to graduation</div>
+                                <div class="session-description">How to keep founders showing up, engaged, and not dropping off</div>
+                            </div>
+                        </div>
+                        <div class="session-time">1:00 - 1:50</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">06</span>
+                            <div>
+                                <div class="session-title">Don't be a robot — staying adaptive when the program goes sideways</div>
+                                <div class="session-description">Read the room, break your own rules, meet founders where they are</div>
+                            </div>
+                        </div>
+                        <div class="session-time">1:50 - 2:30</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">07</span>
+                            <div>
+                                <div class="session-title">AI as your co-pilot — boosting engagement and founder performance</div>
+                                <div class="session-description">Practical ways to use AI across the entire founder journey</div>
+                            </div>
+                        </div>
+                        <div class="session-time">2:30 - 3:15</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">08</span>
+                            <div>
+                                <div class="session-title">Document small wins — the recap habit</div>
+                                <div class="session-description">Capture progress as it happens so you never lose the story</div>
+                            </div>
+                        </div>
+                        <div class="session-time">3:15 - 3:45</div>
+                    </div>
+                </div>
+                <div class="break-notice">Break — 3:45 - 4:00 PM</div>
+            </div>
+
+            <div class="phase-block">
+                <div class="phase-header">After the program</div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">09</span>
+                            <div>
+                                <div class="session-title">Off-boarding with intention — don't just end the program</div>
+                                <div class="session-description">Give founders a clear 'what's next' so momentum doesn't die on day one</div>
+                            </div>
+                        </div>
+                        <div class="session-time">4:00 - 4:30</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">10</span>
+                            <div>
+                                <div class="session-title">Follow-up, testimonials, and building your reputation flywheel</div>
+                                <div class="session-description">Check-ins, social proof, and making the next cohort easier to fill</div>
+                            </div>
+                        </div>
+                        <div class="session-time">4:30 - 5:00</div>
+                    </div>
+                </div>
+                <div class="session-item">
+                    <div class="session-content">
+                        <div class="session-main">
+                            <span class="session-number">11</span>
+                            <div>
+                                <div class="session-title">Report like a storyteller — data that drives funding decisions</div>
+                                <div class="session-description">The right data points, told the right way, to the people who matter</div>
+                            </div>
+                        </div>
+                        <div class="session-time">5:00 - 5:30</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-box">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">11</div>
+                        <div class="stat-label">sessions across one day</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">phases: before, during, after</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">8.5h</div>
+                        <div class="stat-label">of structured learning time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">30+</div>
+                        <div class="stat-label">tools and templates provided</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="certificate-section">
+            <div class="certificate-box">
+                <div class="certificate-header">
+                    <h2 class="certificate-title">Will I get a certificate?</h2>
+                    <p class="certificate-subtitle">Of course! It'll look great on your resume and LinkedIn</p>
+                </div>
+
+                <div class="certificate-card">
+                    <div class="certificate-content">
+                        <div class="certificate-label">Certificate of Completion</div>
+                        <div class="certificate-name">Your name here</div>
+                        <p class="certificate-text">
+                            graduated from the <strong>Program Builders Bootcamp</strong>
+                        </p>
+                        <p style="color: #6b6b80;">
+                            with a complete set of career-accelerating program management skills
+                        </p>
+                    </div>
+
+                    <div class="certificate-footer">
+                        <div class="skills-list">
+                            <div class="skills-title">Skills mastered</div>
+                            <div class="skill-item">Program Design</div>
+                            <div class="skill-item">Founder Engagement</div>
+                            <div class="skill-item">AI Integration</div>
+                            <div class="skill-item">Metrics &amp; Reporting</div>
+                            <div class="skill-item">Community Building</div>
+                            <div class="skill-item">Storytelling</div>
+                        </div>
+
+                        <div class="certificate-badge">
+                            <div class="badge-circle">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="signature-section">
+                            <div class="signature-text">Signature</div>
+                            <div class="signature-info">
+                                <div style="font-weight: 600; color: #1a1a2e;">Program Director</div>
+                                <div>Program Builders</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <svg width="112" height="56" viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1.5rem">
+                <circle cx="8" cy="12" r="5" fill="#2563eb" opacity="0.5"/>
+                <path d="M0 34c0-5 3.6-8 8-8s8 3 8 8" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+                <circle cx="22" cy="10" r="6" fill="#2563eb" opacity="0.75"/>
+                <path d="M12 34c0-6 4.5-10 10-10s10 4 10 10" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.75"/>
+                <circle cx="32" cy="8" r="7" fill="white"/>
+                <path d="M20 34c0-7 5.4-12 12-12s12 5 12 12" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <circle cx="42" cy="10" r="6" fill="#2563eb" opacity="0.75"/>
+                <path d="M32 34c0-6 4.5-10 10-10s10 4 10 10" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.75"/>
+                <circle cx="56" cy="12" r="5" fill="#2563eb" opacity="0.5"/>
+                <path d="M48 34c0-5 3.6-8 8-8s8 3 8 8" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.5"/>
+            </svg>
+            <h2 class="cta-title">Limited to 10 Participants</h2>
+            <p class="cta-text">
+                Small cohorts ensure personalized attention and maximum impact. Get all the details to share with your team.
+            </p>
+            <a href="#details-form" class="cta-button">
+                Get Full Details
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                organization: formData.get('organization')
+            };
+            console.log('Waitlist signup:', data);
+            document.getElementById('waitlistForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+        });
+
+        document.querySelectorAll('a[href="#details-form"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('details-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
